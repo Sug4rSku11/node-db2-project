@@ -10,6 +10,7 @@ const {
     checkVinNumberValid,
     checkVinNumberUnique
     } = require('../cars/cars-middleware')
+const { nextTick } = require('process')
 
 
 router.get('/', (req, res) => {
@@ -29,8 +30,14 @@ router.get('/:id', checkCarId, (req, res) => {
     res.json(req.car)
 })
 
-router.post('/', (req, res) => {
-
+router.post('/', checkCarPayload, 
+                 checkVinNumberValid, 
+                 checkVinNumberUnique, async (req, res, next) => {
+                    await Cars.create(req.body)
+                    .then(newCar => {
+                    res.status(201).json(newCar)
+                    })
+                .catch(next)
 })
 
 
