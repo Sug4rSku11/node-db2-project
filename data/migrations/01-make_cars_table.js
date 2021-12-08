@@ -8,7 +8,7 @@ exports.up = async function (knex) {
     .notNullable()
     table.text('model')
     .notNullable()
-    table.decimal('milage')
+    table.decimal('mileage')
     .notNullable()
     table.text('title')
     .defaultTo(false)

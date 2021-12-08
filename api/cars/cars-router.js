@@ -11,6 +11,7 @@ const {
     checkVinNumberUnique
     } = require('../cars/cars-middleware')
 
+
 router.get('/', (req, res) => {
     Cars.getAll()
     .then(cars => {
@@ -24,8 +25,8 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/:id', (req, res) => {
-
+router.get('/:id', checkCarId, (req, res) => {
+    res.json(req.car)
 })
 
 router.post('/', (req, res) => {
